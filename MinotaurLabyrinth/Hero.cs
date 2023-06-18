@@ -3,6 +3,12 @@
     // Represents the player in the game.
     public class Hero
     {
+        internal readonly bool HasGadget;
+
+        public Hero()
+        {
+        }
+
         // Creates a new player that starts at the given location.
         public Hero(Location start) => Location = start;
         // Contains all the commands that a player can access.
@@ -26,6 +32,9 @@
         // Indicates whether the player currently has the sword.
         public bool HasSword { get; set; }
 
+        // Indicates whether the player is Batman.
+        public bool IsBatman { get; set; }
+
         // Explains why a player died.
         public string CauseOfDeath { get; private set; } = "";
 
@@ -33,6 +42,11 @@
         {
             IsAlive = false;
             CauseOfDeath = cause;
+        }
+
+        public void SetStealth(int v)
+        {
+            throw new NotImplementedException();
         }
     }
 }

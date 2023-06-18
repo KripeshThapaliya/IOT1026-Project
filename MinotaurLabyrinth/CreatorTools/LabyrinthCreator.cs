@@ -36,6 +36,14 @@
             return new Map(dimensions.rows, dimensions.cols);
         }
 
+        public enum RoomType
+        {
+            Entrance,
+            Sword,
+            Pit,
+            Batman, // Add the Batman value here
+        }
+
         /// <summary>
         /// Creates a labyrinth map with randomly placed and non-overlapping features, such as the entrance, sword, traps, and monsters.
         /// </summary>
@@ -43,9 +51,13 @@
         /// <returns>The Location of the entrance in the randomized map.</returns>
         private static Location RandomizeMap(Map map)
         {
+
             Location start = PlaceEntrance(map);
             PlaceSword(map, start);
+            AddRooms(RoomType.Sword, map);
+            AddRooms(RoomType.Entrance, map);
             AddRooms(RoomType.Pit, map);
+            AddRooms(RoomType.Batman, map);//add batman 
             InitializeMonsters(map);
             return start;
         }
@@ -58,7 +70,7 @@
         private static Location PlaceEntrance(Map map)
         {
             Location start = ProceduralGenerator.GetRandomEdgeLocation(map);
-            map.SetRoomAtLocation(start, RoomType.Entrance);
+            map.SetRoomAtLocation(start, (MinotaurLabyrinth.RoomType)RoomType.Entrance);
             return start;
         }
 
@@ -70,7 +82,7 @@
         private static void PlaceSword(Map map, Location start)
         {
             Location swordLocation = ProceduralGenerator.GetRandomLocationNotAdjacentTo(start);
-            map.SetRoomAtLocation(swordLocation, RoomType.Sword);
+            map.SetRoomAtLocation(swordLocation, (MinotaurLabyrinth.RoomType)RoomType.Sword);
         }
 
         /// <summary>
@@ -84,7 +96,7 @@
             int numRooms = map.Rows * map.Columns * multiplier / ScalingFactor;
             for (int i = 0; i < numRooms; ++i)
             {
-                map.SetRoomAtLocation(ProceduralGenerator.GetRandomLocation(), roomType);
+                map.SetRoomAtLocation(ProceduralGenerator.GetRandomLocation(), (MinotaurLabyrinth.RoomType)roomType);
             }
         }
 
