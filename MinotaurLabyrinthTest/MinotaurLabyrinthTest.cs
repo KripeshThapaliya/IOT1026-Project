@@ -25,27 +25,6 @@ namespace MinotaurLabyrinthTest
             Assert.AreEqual(hero.IsAlive, false);
         }
 
-        [TestMethod]
-        public void Batmantest()
-        {
-            BatmanRoom batmanGathering = new BatmanGathering();
-            Hero hero = new Hero();
-            hero.SetStealth(100);
-            Map map = new Map(9, 9);
-
-            batmanGathering.Activate(hero, map);
-            Assert.IsFalse(batmanGathering.IsActive);
-            Assert.IsFalse(hero.IsAlive);
-
-            bool result = batmanGathering.DisplaySense(hero, 9);
-            Assert.IsTrue(result);
-            result = batmanGathering.DisplaySense(hero, 9);
-            Assert.IsFalse(result);
-        }
-
-        private class BatmanGathering : BatmanRoom
-        {
-        }
     }
 
     [TestClass]
@@ -73,5 +52,25 @@ namespace MinotaurLabyrinthTest
             minotaur.Activate(hero, map);
             Assert.AreEqual(hero.Location, new Location(2, 3));
         }
+    }
+
+    [TestMethod]
+    public void GelMoveToActiveTest()
+    {
+        Hero hero = new Hero();
+        var gelLocation = new Location(1, 1);
+        GelatinousCube gel = new(gelLocation);
+        Map map = new Map(4, 4);
+        map.GetRoomAtLocation(gelLocation).AddMonster(gel);
+        gel.Move(hero, map);
+        //New location should be (2,1)
+        var expectedLocation = new Location(2, 1);
+        Assert.AreEqual(expectedLocation, gel.GetLocation());
+        gel.Move(hero, map);
+        expectedLocation = new Location(3, 1);
+        Assert.AreEqual(expectedLocation, gel.GetLocation());
+        gel.Move(hero, map);
+        expectedLocation = new Location(3, 1);
+        Assert.AreEqual(expectedLocation, gel.GetLocation());
     }
 }

@@ -1,4 +1,4 @@
-namespace MinotaurLabyrinth
+﻿namespace MinotaurLabyrinth
 {
     /// <summary>
     /// Represents a Batman room, where the hero encounters Batman.
